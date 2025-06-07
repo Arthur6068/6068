@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Apostas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo de Apostas</h1>
+        <p id="saldo">Saldo: R$100</p>
+        <input type="number" id="aposta" placeholder="Valor da aposta">
+        <input type="number" id="numero" placeholder="Escolha um número (1-10)">
+        <button onclick="apostar()">Apostar</button>
+        <p id="mensagem"></p>
+    </div>
+    <script>
+        let saldo = 100;
+
+        function apostar() {
+            const aposta = parseInt(document.getElementById('aposta').value);
+            const numero = parseInt(document.getElementById('numero').value);
+            const mensagem = document.getElementById('mensagem');
+
+            if (aposta > saldo) {
+                mensagem.textContent = "Você não tem saldo suficiente para essa aposta.";
+                return;
+            }
+
+            if (numero < 1 || numero > 10) {
+                mensagem.textContent = "Número inválido. Escolha um número entre 1 e 10.";
+                return;
+            }
+
+            const numeroSorteado = Math.floor(Math.random() * 10) + 1;
+            mensagem.textContent = "Número sorteado foi: " + numeroSorteado;
+
+            if (numero === numeroSorteado) {
+                saldo += aposta;
+                mensagem.textContent += " Parabéns! Você ganhou!";
+            } else {
+                saldo -= aposta;
+                mensagem.textContent += " Que pena! Você perdeu.";
+            }
+
+            document.getElementById('saldo').textContent = "Saldo: R$" + saldo;
+
+            if (saldo <= 0) {
+                mensagem.textContent = "Você ficou sem saldo. O jogo terminou.";
+            }
+        }
+    </script>
+</body>
+</html>
