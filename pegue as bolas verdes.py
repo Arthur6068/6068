@@ -52,7 +52,7 @@ while True:
     texto = font.render(str(pontos), True, "green")
     tela.blit(texto, (l // 2, a // 2))
 #hack pelas linhas abaixo
-    if player_pos!=item_pos:
-        player_pos=item_pos
+    #if player_pos!=item_pos:
+        #player_pos=item_pos
     py.display.flip()
     clock.tick(30)
